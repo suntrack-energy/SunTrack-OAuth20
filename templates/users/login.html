@@ -1,0 +1,48 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+            <div>
+                <h1 style="color: #ff000a; font-size: 2.5rem; font-weight: 600;">Login</h1>
+                <p style="max-width: 20em; font-size: 1.5rem; margin-top: 10px; margin-bottom: 20px; color: #808080;">Digite seus dados corretamente para iniciar sessão</p>
+                <a style="color: #ff000a;" href="#">Preciso de ajuda</a>
+            </div>
+            <section class="login">
+                <form action="{% url 'login' %}" method="POST">
+                    {% csrf_token %}
+                    {% if next %}
+                        <input type="hidden" name="next" value="{{ next }}">
+                    {% endif %}
+                    <div class="row">
+                    {% for field in form.visible_fields %}
+                        <div class="col-12 col-lg-12" style="margin-bottom: 10px;">
+                            <label for="{{ field.id_for_label }}" style="color: #ff0004; margin-bottom: 5px;">{{ field.label }}</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    </div>
+                    <a style="color: #ff000a;" href="#">Equeceu a senha?</a>
+                    <div class="col-12 text-center">
+                        <button class="btn btn-success col-12" style="padding: top 5px;" type="submit">Logar</button>
+                    </div>
+                    <div class="col-12 text-center">
+                        <a href="{% url 'cadastrar' %}" class="btn btn-success2 col-12" style="padding: top 5px;">Criar conta</a>
+                    </div>
+                    <p style="text-align: center; margin-top: 1em; margin-bottom: 1em;">ou</p>
+                    <div class="google-btn">
+                        <a href="#" class="btn-google google-btn" style="padding: top 5px; text-decoration: none;">
+                            <img width="30px" src="{% static 'assets/icons/icon-google.png' %}" alt="icon-google">
+                            <p style="text-align: center; color: black;">Fazer Login com o Google</p>
+                        </a>
+                    </div><br>
+                    <div class="github-btn">
+                        <a href="http://127.0.0.1:8000/accounts/github/login/?process=login" class="btn-github github-btn" style="padding: top 5px; text-decoration: none;">
+                            <img width="40px" src="{% static 'assets/icons/icon-github.png' %}" alt="icon-google">
+                            <p style="text-align: center; color: white;">Fazer Login com o GitHub</p>
+                        </a>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+</body>
+{% endblock %}

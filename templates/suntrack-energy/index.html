@@ -1,0 +1,50 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+            <section class="conteudo">
+                <section class="banner">
+                    <img class="banner__imagem" src="{% static 'assets/images/Banner(1).png' %}" alt="Banner suntrack">
+                </section>
+                <section class="tags">
+                    <p class="tags__titulo">Busque por tags:</p>
+                    <ul class="tags__lista">
+                        <li class="tags__tag">SunTrack Services</li>
+                        <li class="tags__tag">Planos SunTrack</li>
+                        <li class="tags__tag">GoodWe Services</li>
+                    </ul>
+                </section>
+                <section class="servicos">
+                    <div class="cards">
+                        <h2 class="cards__titulo">Navegue pelo serviços</h2>
+                        <ul class="cards__lista">
+                            {% if cards %}
+                            {% for servicos in cards %}
+                            <li class="card">
+                                <a href="{% url 'servico' servicos.id %}">
+                                    {% if servicos.imagem == "" or servicos.imagem == null %}
+                                        <img class="card__imagem" src="{% static 'assets/images/not_found.jpg' %}" alt="images">
+                                    {% else %}
+                                        <img class="card__imagem" src="{{ servicos.imagem.url }}" alt="images">
+                                    {% endif %}
+                                </a>
+                                <span class="card__tag">{{ servicos.categoria }}</span>
+                                <div class="card__info">
+                                    <p class="card__titulo">{{ servicos.titulo }}</p>
+                                    <div class="card__texto">
+                                        <p class="card__descricao">{{ servicos.legenda }}</p>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                            {% else %}
+                            <div class="imagem_texto">
+                                <p>Serviços não encontrados.</p>
+                            </div>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+{% endblock %}

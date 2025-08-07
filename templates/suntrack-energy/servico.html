@@ -1,0 +1,25 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+<section class="conteudo">
+    <section class="servico">
+        <div class="servico__conteudo">
+            {% if servicos.imagem == "" or servicos.imagem == null %}
+            <img class="servico__imagem" src="{% static 'assets/images/not_found.jpg' %}" alt="images">
+            {% else %}
+            <img class="servico__imagem" src="{{ servicos.imagem.url }}" alt="images">
+            {% endif %}
+            <div class="servico__info">
+                <div class="servico__texto">
+                    <p class="servico__categoria">{{ servicos.categoria }}</p>
+                    <p class="servico__titulo">{{ servicos.titulo }}</p>
+                    <p class="servico__legenda">{{ servicos.legenda }}</p>
+                    <p class="servico__descricao">{{ servicos.descricao }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+</main>
+</div>
+{% endblock %}
