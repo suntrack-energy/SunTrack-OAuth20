@@ -15,6 +15,7 @@ from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
 
 
 # Quick-start development settings - unsuitable for production
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.google',
     'django.contrib.sites',
 ]
 
@@ -149,11 +151,28 @@ MEDIA_URL = 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+GITHUB_CLIENT_ID = os.getenv('GITHUB_CLIENT_ID')
+GITHUB_CLIENT_SECRET = os.getenv('GITHUB_CLIENT_SECRET')
+if not GITHUB_CLIENT_ID or not GITHUB_CLIENT_SECRET:
+    raise RuntimeError("Defina GITHUB_CLIENT_ID e GITHUB_CLIENT_SECRET no .env")
+
+GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
+if not GITHUB_CLIENT_ID or not GITHUB_CLIENT_SECRET:
+    raise RuntimeError("Defina GOOGLE_CLIENT_ID e GOOGLE_CLIENT_SECRET no .env")
+
 SOCIALACCOUNT_PROVIDERS = {
     'github': {
         'APP': {
-            'client_id': 'Ov23liTpzLtyQ1SKwb5H',
-            'secret': 'bb07bc7a2390a397398410cc8f92c1e59198e0ec',
+            'client_id': GITHUB_CLIENT_ID,
+            'secret': GITHUB_CLIENT_SECRET,
+            'key': ''
+        }
+    },
+    'google': {
+        'APP': {
+            'client_id': GOOGLE_CLIENT_ID,
+            'secret': GOOGLE_CLIENT_SECRET,
             'key': ''
         }
     }
